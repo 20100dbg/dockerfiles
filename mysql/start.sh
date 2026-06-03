@@ -1,15 +1,17 @@
 #!/bin/bash
 
-ROOT_PASSWORD=my-secret-password
+if [ -z "$1" ]; then
+    ROOT_PASSWORD=my-secret-password
+else
+    ROOT_PASSWORD=$1
+fi
 
 docker pull mysql:latest
 
-mkdir -p ./mysql
-
 docker run -d \
-  --name mysql_container \
+  --rm --name mysql_container \
   -e MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD \
-  --mount type=bind,src=./mysql,dst=/var/lib/mysql \
+  --mount type=volume,dst=/var/lib/mysql \
   -p 3306:3306 \
   mysql:latest
 

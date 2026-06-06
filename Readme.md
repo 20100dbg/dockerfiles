@@ -14,6 +14,11 @@
 #### mysql
 - pre-config and start mysql:latest
 
+#### networks
+- pivot training
+- docker-compose
+- attacker & victim Dockerfile
+
 #### python2
 - based on debian9
 - python2.7
@@ -35,3 +40,7 @@
 - docker-compose
 - php8.2-apache
 - mysql
+
+#### webserver2
+- debian13
+- apache + php

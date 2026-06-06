@@ -7,4 +7,4 @@ RUN apt-get update && \
     -y --allow-unauthenticated
 
 
-RUN /bin/bash
+CMD python2.7

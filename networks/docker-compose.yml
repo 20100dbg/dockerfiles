@@ -1,0 +1,57 @@
+services:
+
+  attacker:
+    hostname: attacker
+    build:
+      dockerfile: attacker.Dockerfile
+    networks:
+      - network0
+
+  front:
+    hostname: front
+    build:
+      dockerfile: victim.Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - network0
+      - network1
+
+  middle:
+    hostname: middle
+    build:
+      dockerfile: victim.Dockerfile
+    networks:
+      - network1
+      - network2
+
+  backend:
+    hostname: backend
+    build:
+      dockerfile: victim.Dockerfile
+    networks:
+      - network2
+
+
+networks:
+  network0:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/16
+          ip_range: 10.0.0.0/24
+          gateway: 10.0.0.254
+  network1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/16
+          ip_range: 10.1.0.0/24
+          gateway: 10.1.0.254
+  network2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.2.0.0/16
+          ip_range: 10.2.0.0/24
+          gateway: 10.2.0.254

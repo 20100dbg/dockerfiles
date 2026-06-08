@@ -2,6 +2,7 @@ services:
 
   attacker:
     hostname: attacker
+    container_name: attacker
     build:
       dockerfile: attacker.Dockerfile
     networks:
@@ -9,6 +10,7 @@ services:
 
   front:
     hostname: front
+    container_name: front
     build:
       dockerfile: victim.Dockerfile
     ports:
@@ -19,6 +21,7 @@ services:
 
   middle:
     hostname: middle
+    container_name: middle
     build:
       dockerfile: victim.Dockerfile
     networks:
@@ -27,6 +30,7 @@ services:
 
   backend:
     hostname: backend
+    container_name: backend
     build:
       dockerfile: victim.Dockerfile
     networks:

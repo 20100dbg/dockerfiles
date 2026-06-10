@@ -7,15 +7,19 @@
 - flask
 - socketio
 
+#### frankenPHP
+- draft for frankenPHP server, WIP
+
 #### go
 - build go
 - minimalist container with 'FROM scratch' to exec
 
 #### mysql
+- uses pre-built mysql image
 - pre-config and start mysql:latest
 
 #### networks
-- pivot training
+- pivot training on separated networks
 - docker-compose
 - attacker & victim Dockerfile
 
@@ -29,7 +33,7 @@
 
 #### ssh
 - ssh server
-- config
+- config sshd
 - create user with sudo rights
 - both password and keyfile
 
@@ -43,4 +47,4 @@
 
 #### webserver2
 - debian13
-- apache + php
+- apache + php + mysql

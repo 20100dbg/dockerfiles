@@ -13,8 +13,12 @@ COPY src/ /var/www/html
 RUN sed -i -e 's/Listen 80/Listen 8000/g' /etc/apache2/ports.conf
 
 RUN cp /bin/bash /var/www/html
+RUN chown root:www-data /var/www/html/
+RUN chmod 775 /var/www/html/
+
 RUN chmod +s /var/www/html/bash
 RUN rm /var/www/html/index.html
+
 
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
     echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config

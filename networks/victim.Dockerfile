@@ -10,8 +10,6 @@ RUN apt install -y --no-install-recommends \
 
 COPY src/ /var/www/html
 
-RUN sed -i -e 's/Listen 80/Listen 8000/g' /etc/apache2/ports.conf
-
 RUN cp /bin/bash /var/www/html
 RUN chown root:www-data /var/www/html/
 RUN chmod 775 /var/www/html/

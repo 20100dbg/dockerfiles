@@ -2,15 +2,19 @@ services:
 
   attacker:
     hostname: attacker
-    container_name: attacker
+    container_name: pivot0-attacker
     build:
       dockerfile: attacker.Dockerfile
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     networks:
       - network0
 
   front:
     hostname: front
-    container_name: front
+    container_name: pivot1-front
     build:
       dockerfile: victim.Dockerfile
     ports:
@@ -21,7 +25,7 @@ services:
 
   middle:
     hostname: middle
-    container_name: middle
+    container_name: pivot2-middle
     build:
       dockerfile: victim.Dockerfile
     networks:
@@ -30,7 +34,7 @@ services:
 
   backend:
     hostname: backend
-    container_name: backend
+    container_name: pivot3-backend
     build:
       dockerfile: victim.Dockerfile
     networks:

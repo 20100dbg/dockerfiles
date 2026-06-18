@@ -4,7 +4,7 @@ RUN apt update
 RUN apt install -y --no-install-recommends \
         net-tools iproute2 iputils-ping nano sudo \
         python3 pipx bash git gcc build-essential gcc-multilib \
-        curl ssh netcat-openbsd socat
+        curl ssh netcat-openbsd socat tmux
 
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
     echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config && \
@@ -16,12 +16,17 @@ RUN useradd -m -s /bin/bash $USERNAME
 RUN usermod -aG sudo $USERNAME
 RUN echo "$USERNAME:$PASSWORD" | chpasswd
 
-USER $USERNAME
+RUN mkdir -p /root/.ssh
+RUN ssh-keygen -f /root/.ssh/id_rsa -q -N ""
+RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
-RUN mkdir -p /home/$USERNAME/.ssh
-RUN ssh-keygen -f /home/$USERNAME/.ssh/id_rsa -q -N ""
-RUN cp /home/$USERNAME/.ssh/id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
+USER $USERNAME
 WORKDIR /home/$USERNAME
+
+RUN mkdir -p ./.ssh
+RUN ssh-keygen -f ./.ssh/id_rsa -q -N ""
+RUN cp ./.ssh/id_rsa.pub ./.ssh/authorized_keys
+
 
 RUN pipx install git+https://github.com/brightio/penelope
 RUN pipx ensurepath
@@ -52,8 +57,10 @@ RUN git clone https://github.com/haad/proxychains
 USER root
 RUN cd proxychains && ./configure && make && sudo make install
 RUN rm -rf proxychains
+RUN cp /usr/local/etc/proxychains.conf ./
 
-COPY genshell.py /home/$USERNAME
-RUN chown $USERNAME:$USERNAME /home/$USERNAME/genshell.py
-RUN chmod +x /home/$USERNAME/genshell.py
+COPY genshell.py ./
+RUN chown $USERNAME:$USERNAME ./genshell.py
+RUN chmod +x ./genshell.py
+
 CMD ["/usr/sbin/sshd", "-D"]

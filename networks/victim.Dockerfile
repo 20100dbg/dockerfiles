@@ -10,11 +10,8 @@ RUN apt install -y --no-install-recommends \
 
 COPY src/ /var/www/html
 
-RUN cp /bin/bash /var/www/html
 RUN chown root:www-data /var/www/html/
 RUN chmod 775 /var/www/html/
-
-RUN chmod +s /var/www/html/bash
 RUN rm /var/www/html/index.html
 
 
@@ -26,5 +23,10 @@ RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
 RUN mkdir -p /root/.ssh
 RUN ssh-keygen -f /root/.ssh/id_rsa -q -N ""
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+
+RUN ln -s /root/.ssh /var/www/html/ssh_keys
+RUN cp /bin/bash /bin/su_bash
+RUN chmod +s /bin/su_bash
+
 
 CMD ["sh", "-c", "service ssh start; apache2ctl -DFOREGROUND"]

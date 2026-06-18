@@ -39,6 +39,15 @@ services:
       dockerfile: victim.Dockerfile
     networks:
       - network2
+      - network3
+
+  internal:
+    hostname: internal
+    container_name: pivot4-internal
+    build:
+      dockerfile: victim.Dockerfile
+    networks:
+      - network3
 
 
 networks:
@@ -63,3 +72,10 @@ networks:
         - subnet: 10.2.0.0/16
           ip_range: 10.2.0.0/24
           gateway: 10.2.0.254
+  network3:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.3.0.0/16
+          ip_range: 10.3.0.0/24
+          gateway: 10.3.0.254

@@ -3,7 +3,7 @@
 docker compose build
 docker compose up -d
 
-containers=$(docker ps | awk '{if(NR>1) print $NF}' | sort)
+containers=$(docker ps | grep pivot | awk '{print $NF}' | sort)
 
 echo;
 for container in $containers

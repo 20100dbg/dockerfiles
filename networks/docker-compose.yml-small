@@ -1,0 +1,62 @@
+services:
+
+  attacker:
+    hostname: attacker
+    container_name: pivot0-attacker
+    build:
+      dockerfile: attacker.Dockerfile
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    networks:
+      - network0
+
+  front:
+    hostname: front
+    container_name: pivot1-front
+    build:
+      dockerfile: victim.Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - network0
+      - network1
+
+  middle:
+    hostname: middle
+    container_name: pivot2-middle
+    build:
+      dockerfile: victim.Dockerfile
+    networks:
+      - network1
+      - network2
+
+  backend:
+    hostname: backend
+    container_name: pivot3-backend
+    build:
+      dockerfile: victim.Dockerfile
+    networks:
+      - network2
+
+
+networks:
+  network0:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+          gateway: 10.0.0.254
+  network1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.1.0/24
+          gateway: 10.0.1.254
+  network2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.2.0/24
+          gateway: 10.0.2.254

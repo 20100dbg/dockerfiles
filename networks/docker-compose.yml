@@ -55,27 +55,23 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 10.0.0.0/16
-          ip_range: 10.0.0.0/24
+        - subnet: 10.0.0.0/24
           gateway: 10.0.0.254
   network1:
     ipam:
       driver: default
       config:
-        - subnet: 10.1.0.0/16
-          ip_range: 10.1.0.0/24
-          gateway: 10.1.0.254
+        - subnet: 10.0.1.0/24
+          gateway: 10.0.1.254
   network2:
     ipam:
       driver: default
       config:
-        - subnet: 10.2.0.0/16
-          ip_range: 10.2.0.0/24
-          gateway: 10.2.0.254
+        - subnet: 10.0.2.0/24
+          gateway: 10.0.2.254
   network3:
     ipam:
       driver: default
       config:
-        - subnet: 10.3.0.0/16
-          ip_range: 10.3.0.0/24
-          gateway: 10.3.0.254
+        - subnet: 10.0.3.0/24
+          gateway: 10.0.3.254

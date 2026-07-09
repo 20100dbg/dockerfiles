@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker compose build
-docker compose up -d
+docker compose up -d --remove-orphans
 
 containers=$(docker ps | grep pivot | awk '{print $NF}' | sort)
 

@@ -2,7 +2,7 @@ FROM debian:13-slim
 
 RUN apt update
 RUN apt install -y --no-install-recommends \
-        net-tools iproute2 iputils-ping  \
+        net-tools iproute2 iputils-ping iptables tcpdump \
         python3 bash nano \
         curl ssh netcat-openbsd socat \
         apache2 php libapache2-mod-php
@@ -10,8 +10,8 @@ RUN apt install -y --no-install-recommends \
 
 COPY src/ /var/www/html
 
-RUN chown root:www-data /var/www/html/
-RUN chmod 775 /var/www/html/
+RUN chown -R www-data:www-data /var/www/html/
+RUN chmod 755 /var/www/html/
 RUN rm /var/www/html/index.html
 
 
@@ -28,5 +28,6 @@ RUN ln -s /root/.ssh /var/www/html/ssh_keys
 RUN cp /bin/bash /bin/su_bash
 RUN chmod +s /bin/su_bash
 
+COPY scripts /opt
 
 CMD ["sh", "-c", "service ssh start; apache2ctl -DFOREGROUND"]

@@ -8,7 +8,7 @@ RUN apt install -y --no-install-recommends \
         apache2 php libapache2-mod-php
 
 
-COPY src/ /var/www/html
+COPY victim/www/ /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html/
 RUN chmod 755 /var/www/html/
@@ -28,6 +28,6 @@ RUN ln -s /root/.ssh /var/www/html/ssh_keys
 RUN cp /bin/bash /bin/su_bash
 RUN chmod +s /bin/su_bash
 
-COPY scripts /opt
+COPY victim/linux_script/ /opt
 
 CMD ["sh", "-c", "service ssh start; apache2ctl -DFOREGROUND"]

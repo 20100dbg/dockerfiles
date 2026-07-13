@@ -54,7 +54,7 @@ RUN curl -L -O https://github.com/nicocha30/ligolo-ng/releases/download/v0.8.3/l
 RUN rm README.md LICENSE
 
 RUN grep -o '^[^#]*' /etc/proxychains4.conf > ./proxychains.conf
-COPY genshell.py ./
+COPY attacker/genshell.py ./
 RUN echo 'alias pc=proxychains4' >> ~/.bashrc
 
 USER root

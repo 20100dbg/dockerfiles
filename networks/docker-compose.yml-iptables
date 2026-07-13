@@ -4,7 +4,7 @@ services:
     hostname: attacker
     container_name: pivot0-attacker
     build:
-      dockerfile: attacker.Dockerfile
+      dockerfile: attacker/attacker.Dockerfile
     cap_add:
       - NET_ADMIN
     devices:
@@ -16,9 +16,7 @@ services:
     hostname: front
     container_name: pivot1-front
     build:
-      dockerfile: victim.Dockerfile
-    ports:
-      - 8000:8000
+      dockerfile: victim/victim.Dockerfile
     networks:
       - network0:
       - network1:
@@ -27,7 +25,7 @@ services:
     hostname: middle1
     container_name: pivot2-middle1
     build:
-      dockerfile: victim.Dockerfile
+      dockerfile: victim/victim.Dockerfile
     cap_add:
       - NET_ADMIN
     post_start:
@@ -40,7 +38,7 @@ services:
     hostname: backend
     container_name: pivot3-backend
     build:
-      dockerfile: victim.Dockerfile
+      dockerfile: victim/victim.Dockerfile
     cap_add:
       - NET_ADMIN
     post_start:
@@ -53,7 +51,7 @@ services:
     hostname: internal
     container_name: pivot4-internal
     build:
-      dockerfile: victim.Dockerfile
+      dockerfile: victim/victim.Dockerfile
    networks:
       - network3
 

@@ -1,2 +1,3 @@
 windows_storage*
 *.iso
+docker-compose.yml

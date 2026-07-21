@@ -23,6 +23,15 @@ The start.sh script does :
 - Print each container IP
 
 
+#### Exploit
+
+This project aims to work your pivot skills, not your pentest ones, so it is made extremely easy to execute shell commands your target :
+
+- Linux victims host a simple website that allows RCE : http://10.0.0.1/?cmd=id
+- Linux victims also contains a privesc script at /var/www/html/get_root.sh, and SSH keyfiles in /var/www/html/ssh_keys
+- Windows victims feature a shell listening on port 4444
+
+
 #### Dump private ssh keys inside ssh_keys folder
 
 ```

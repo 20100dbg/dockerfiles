@@ -1,20 +1,22 @@
 services:
-  php:
-    image: php:8.2-apache
+  apache:
+    build: .
     container_name: apache
     ports:
       - 8000:80
     volumes:
-      - ./www:/var/www/html
+      - www:/var/www/html
+    environment:
+      - WEB_PORT=${WEB_PORT}
   mysql:
     image: mysql:latest
     container_name: mysql
-    ports:
-      - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_ROOT_PASSWORD: "my-secret-password"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
 volumes:
   mysql_data:
+  www:

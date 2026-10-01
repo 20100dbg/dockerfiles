@@ -1,0 +1,9 @@
+:80 {
+    root * /app
+
+    php_server {
+        worker /app/index.php
+    }
+
+    #php_server
+}

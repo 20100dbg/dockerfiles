@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/app
+      - ./Caddyfile:/etc/frankenphp/Caddyfile
+    environment:
+      SERVER_NAME: ":80"
